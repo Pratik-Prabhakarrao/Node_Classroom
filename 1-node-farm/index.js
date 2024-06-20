@@ -58,8 +58,11 @@ const dataObj = JSON.parse(data);
 
 const serve = http.createServer((req, res) => {
   console.log(req.url);
+  const {query, pathname} = url.parse(req.url, true);
 
-  const pathname = req.url;
+
+  //overview pagwe
+  
   if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, {'Content-type':'text/html'});
 
@@ -73,7 +76,10 @@ const serve = http.createServer((req, res) => {
 
     //product page
   } else if (pathname === "/product") {
-    res.end("This is the product");
+    res.writeHead(200, {'Content-type':'text/html'});
+    const product = dataObj[query.id]
+    const output = replaceTemplate(tempProduct, product)
+    res.end(output);
 
     //API
   } else if(pathname=== '/api'){
