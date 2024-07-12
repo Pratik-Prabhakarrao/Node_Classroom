@@ -35,3 +35,16 @@ const writeFilePro = (file, data) => {
 //   .catch((err) => {
 //     console.log(err.message);
 //   });
+
+const getDogPic = async () => {
+  const data = await readFilePro(`${__dirname}/dog.txt`);
+  console.log(`Breed : ${data}`);
+
+  const res = await superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
+  console.log(res.body.message);
+
+  await writeFilePro('dog-img.txt', res.body.message);
+  console.log('return dog image saved to the file ');
+};
+
+getDogPic();
