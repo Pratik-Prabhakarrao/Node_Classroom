@@ -7,7 +7,7 @@ const readFilePro = (file) => {
       if (err) reject('I could not find that file');
       resolve(data);
     });
-  });
+  }); 
 };
 
 const writeFilePro = (file, data) => {
@@ -41,10 +41,20 @@ const getDogPic = async () => {
   console.log(`Breed : ${data}`);
 
   const res = await superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
-  console.log(res.body.message);
+  console.log(res.body.message); 
 
   await writeFilePro('dog-img.txt', res.body.message);
   console.log('return dog image saved to the file ');
-};
+}
 
 getDogPic();
+
+
+console.log("1: Will get dog pic");
+getDogPic().then(x=>{
+  console.log(x);
+  console.log("3: Done gettig the dog pic");
+});
+
+
+
